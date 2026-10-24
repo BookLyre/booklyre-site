@@ -1,52 +1,29 @@
-# booklyre-site
+# booklyre.com
 
-The website for **BookLyre** and **BookLyre Studio**, served by GitHub Pages at
-**[booklyre.com](https://booklyre.com)**.
+The website for **BookLyre** and **BookLyre Studio**: the home page, support page, privacy policies and terms of use, served at [booklyre.com](https://booklyre.com) by GitHub Pages.
 
-BookLyre turns DRM-free ebooks into full-cast audiobooks, with a different AI voice for each
-character, generated entirely on your iPhone or iPad. BookLyre Studio does the same for
-independent authors working from their own manuscripts.
+| Page | URL |
+|------|-----|
+| Home | https://booklyre.com/ |
+| Support | https://booklyre.com/support/ |
+| BookLyre privacy policy | https://booklyre.com/privacy/booklyre/ |
+| BookLyre Studio privacy policy | https://booklyre.com/privacy/booklyre-studio/ |
+| BookLyre terms of use | https://booklyre.com/terms/booklyre/ |
+| BookLyre Studio terms of use | https://booklyre.com/terms/booklyre-studio/ |
 
-## Pages
+These are the URLs used in App Store Connect, so keep the paths stable.
 
-| Path | Page |
-| --- | --- |
-| [`/`](https://booklyre.com/) | Home |
-| [`/support/`](https://booklyre.com/support/) | Support and FAQ (the App Store support URL) |
-| [`/privacy/booklyre/`](https://booklyre.com/privacy/booklyre/) | BookLyre privacy policy |
-| [`/terms/booklyre/`](https://booklyre.com/terms/booklyre/) | BookLyre terms of use |
-| [`/privacy/booklyre-studio/`](https://booklyre.com/privacy/booklyre-studio/) | BookLyre Studio privacy policy |
-| [`/terms/booklyre-studio/`](https://booklyre.com/terms/booklyre-studio/) | BookLyre Studio terms of use |
+## Updating
 
-The privacy and terms URLs are linked from the App Store listings and from inside the apps,
-so keep them stable. If a page has to move, leave a redirect at the old path.
+This repo holds generated HTML. Don't edit the legal pages by hand: they're built from the same Markdown the apps bundle, so the website and the in-app text always match. To change them, edit the source and rebuild:
 
-## How it's built
+```sh
+pip install markdown
+python3 build.py --domain booklyre.com   # writes ./public
+```
 
-Plain static HTML and one stylesheet (`style.css`). No build step runs here: the files in
-this repo are published exactly as they are.
-
-- `CNAME` sets the custom domain `booklyre.com`. Don't delete it.
-- `.nojekyll` turns off Jekyll processing.
-- `404.html` is the not-found page.
-
-Pages publishes from the `main` branch, root folder. A push to `main` goes live within a
-minute or two.
-
-## Editing
-
-Edit the HTML directly, or regenerate the pages from their source and commit the output.
-Before pushing, open `index.html` locally, or run `python3 -m http.server` in this folder,
-and check the links.
-
-## DNS
-
-`booklyre.com` is registered at Porkbun. The root has `A` records pointing at GitHub Pages
-(`185.199.108.153`–`185.199.111.153`), and `www` is a `CNAME` to `booklyre.github.io`.
-Porkbun email forwarding handles `support@booklyre.com`; leave its `MX` records alone.
+Then copy the contents of `public/` here and push. Pages redeploys within a minute or two.
 
 ## Contact
 
 support@booklyre.com
-
-© 2026 Brandon J Conover
