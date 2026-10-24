@@ -5,6 +5,7 @@ The website for **BookLyre** and **BookLyre Studio**: the home page, support pag
 | Page | URL |
 |------|-----|
 | Home | https://booklyre.com/ |
+| Guides | https://booklyre.com/guides/ |
 | Support | https://booklyre.com/support/ |
 | BookLyre privacy policy | https://booklyre.com/privacy/booklyre/ |
 | BookLyre Studio privacy policy | https://booklyre.com/privacy/booklyre-studio/ |
