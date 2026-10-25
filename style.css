@@ -30,3 +30,9 @@ h3 { font-size: 18px; margin-top: 24px; margin-bottom: 4px; }
 .switch { font-size: 14px; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 12px; }
 footer.site { padding-top: 20px; padding-bottom: 32px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
 .soon { font-size: 13px; font-weight: 600; color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 2px 8px; vertical-align: middle; margin-left: 6px; white-space: nowrap; }
+figure.shot { margin: 16px 0 24px; text-align: center; }
+figure.shot img { max-width: 100%; height: auto; }
+figure.shot figcaption { font-size: 14px; color: var(--muted); margin-top: 6px; }
+.tip { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 10px; padding: 4px 16px; margin: 16px 0; }
+figure.phone img { width: 260px; border-radius: 28px; border: 1px solid var(--line); box-shadow: 0 6px 24px rgba(0,0,0,.12); }
+figure.phone.wide img { width: 100%; max-width: 640px; border-radius: 18px; }
