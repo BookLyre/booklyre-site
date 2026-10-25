@@ -1,43 +1,137 @@
+/* booklyre.com: styled after the app's Parchment theme (ThemeEffects.swift
+   parchmentSketch + ParchmentMap.swift): weathered orange-brown map paper,
+   sepia ink, a ruled border, serif text and ruled frames instead of boxes.
+   Parchment is a light-only theme in the app, so the site is light-only too. */
 :root {
-  --bg: #fbfaf7; --fg: #1d1b18; --muted: #6b665e; --line: #e6e1d8;
-  --card: #ffffff; --accent: #7a4fd6;
-  color-scheme: light dark;
-}
-@media (prefers-color-scheme: dark) {
-  :root { --bg: #151413; --fg: #ece8e1; --muted: #a39d93; --line: #2d2a27; --card: #1d1c1a; --accent: #b39af0; }
+  --paper: #d6a666;      /* bgDark: weathered paper */
+  --paper-light: #e4bc80;/* bgDarker: lighter wear */
+  --stain: #ce9c5c;      /* bgCard: deeper stain */
+  --scorch: #6e3a14;     /* primaryDark: scorch / coffee stain */
+  --wash: #b0783c;       /* primaryLight */
+  --ink: #281608;        /* textPrimary */
+  --ink-faded: #4e2e14;  /* textSecondary */
+  --link: #562e10;       /* primary: iron-gall ink */
+  --red-ink: #761e0c;    /* accent */
+  --rule: rgba(40, 22, 8, .38);
+  --rule-soft: rgba(40, 22, 8, .2);
+  --serif: ui-serif, "New York", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  color-scheme: light;
 }
 * { box-sizing: border-box; }
+html { background: var(--paper); }
 body {
-  margin: 0; background: var(--bg); color: var(--fg);
-  font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin: 0; min-height: 100vh; color: var(--ink); position: relative; z-index: 0;
+  font: 18px/1.6 var(--serif);
+  background:
+    radial-gradient(ellipse 38% 28% at 18% 12%, rgba(228,188,128,.75), transparent 70%),
+    radial-gradient(ellipse 30% 24% at 82% 30%, rgba(228,188,128,.6), transparent 70%),
+    radial-gradient(ellipse 34% 26% at 30% 70%, rgba(228,188,128,.55), transparent 70%),
+    radial-gradient(ellipse 22% 16% at 70% 78%, rgba(110,58,20,.18), transparent 70%),
+    radial-gradient(ellipse 18% 14% at 12% 45%, rgba(110,58,20,.14), transparent 70%),
+    radial-gradient(ellipse 16% 12% at 90% 8%, rgba(110,58,20,.16), transparent 70%),
+    var(--paper);
+  background-attachment: fixed;
+  -webkit-text-size-adjust: 100%;
 }
-a { color: var(--accent); }
-header.site, main, footer.site { max-width: 760px; margin: 0 auto; padding: 0 20px; }
-header.site { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding-top: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
-.brand { font-weight: 700; font-size: 20px; color: var(--fg); text-decoration: none; }
-nav { display: flex; gap: 16px; flex-wrap: wrap; }
-nav a { text-decoration: none; color: var(--muted); }
-nav a:hover { color: var(--fg); }
-main { padding-top: 24px; padding-bottom: 48px; }
-h1 { font-size: 34px; line-height: 1.2; margin: 24px 0 12px; }
-h2 { font-size: 22px; margin-top: 36px; }
-h3 { font-size: 18px; margin-top: 24px; margin-bottom: 4px; }
-.hero p { font-size: 19px; color: var(--muted); }
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 24px; }
-.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 4px 20px 12px; }
-.card h2 { margin-top: 16px; }
+/* Faint map ink: rhumb lines radiating from a compass point. */
+body::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1; opacity: .09;
+  background: repeating-conic-gradient(from 0deg at 78% 22%, var(--ink) 0deg .18deg, transparent .18deg 22.5deg);
+}
+/* Scorched edges and the ruled map border. */
+body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 10;
+  box-shadow: inset 0 0 90px 18px rgba(110,58,20,.45), inset 0 0 18px 2px rgba(40,22,8,.35);
+  border: 1.5px dashed var(--rule); outline: 1px solid var(--rule-soft); outline-offset: -16px;
+  margin: 8px; border-radius: 6px;
+}
+a { color: var(--link); text-decoration-color: rgba(86,46,16,.45); text-underline-offset: 3px; }
+a:hover { color: var(--red-ink); text-decoration-color: currentColor; }
+::selection { background: rgba(118,30,12,.22); }
+
+header.site, main, footer.site { max-width: 760px; margin: 0 auto; padding-left: 28px; padding-right: 28px; }
+header.site {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  padding-top: 32px; padding-bottom: 18px; border-bottom: 1px solid var(--rule);
+  box-shadow: 0 3px 0 -2px var(--rule-soft);
+}
+.brand { font: 700 26px/1 var(--sans); letter-spacing: -.01em; color: var(--ink); text-decoration: none; }
+.brand:hover { color: var(--ink); }
+nav { display: flex; gap: 8px; flex-wrap: wrap; }
+nav a {
+  font-size: 15px; text-decoration: none; color: var(--ink);
+  border: 1px solid var(--rule); border-radius: 999px; padding: 4px 12px; background: rgba(228,188,128,.35);
+}
+nav a:hover { color: var(--red-ink); border-color: var(--red-ink); background: rgba(228,188,128,.6); }
+
+main { padding-top: 16px; padding-bottom: 56px; }
+h1 { font: 700 38px/1.15 var(--sans); letter-spacing: -.015em; margin: 28px 0 14px; }
+h2 {
+  font: 600 14px/1.3 var(--serif); text-transform: uppercase; letter-spacing: .12em; color: var(--ink-faded);
+  margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule-soft);
+}
+h3 { font: 700 19px/1.35 var(--serif); margin: 26px 0 4px; }
+h4 { font: 700 17px/1.35 var(--serif); margin: 20px 0 4px; }
+p, li { color: var(--ink); }
+strong { color: var(--ink); }
+hr { border: 0; border-top: 1px dashed var(--rule); margin: 32px 0; }
+code { font-size: .9em; background: rgba(228,188,128,.55); border: 1px solid var(--rule-soft); border-radius: 4px; padding: 0 4px; }
+table { border-collapse: collapse; width: 100%; font-size: 16px; }
+th, td { border-bottom: 1px solid var(--rule-soft); padding: 6px 8px; text-align: left; vertical-align: top; }
+blockquote { margin: 16px 0; padding: 2px 16px; border-left: 3px double var(--rule); color: var(--ink-faded); }
+
+.hero h1 { font-size: 46px; margin-top: 36px; }
+.hero p { font-size: 20px; color: var(--ink-faded); font-style: italic; }
+
+/* Ruled frames, like the app's grouped cards. */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 26px; }
+.card, .tip {
+  background: rgba(228,188,128,.42); border: 1px solid var(--rule); border-radius: 12px;
+  box-shadow: inset 0 0 0 4px rgba(228,188,128,.25), inset 0 0 0 5px var(--rule-soft), 0 1px 0 rgba(255,240,210,.35);
+}
+.card { padding: 6px 22px 14px; }
+.card h2 {
+  font: 700 22px/1.25 var(--serif); text-transform: none; letter-spacing: 0; color: var(--ink);
+  border: 0; margin: 16px 0 6px; padding: 0;
+}
+.card h2 a { color: var(--ink); }
 .links { font-size: 15px; }
-.switch { font-size: 14px; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 12px; }
-footer.site { padding-top: 20px; padding-bottom: 32px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
-.soon { font-size: 13px; font-weight: 600; color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 2px 8px; vertical-align: middle; margin-left: 6px; white-space: nowrap; }
-figure.shot { margin: 16px 0 24px; text-align: center; }
+.switch { font-size: 15px; font-style: italic; color: var(--ink-faded); border-bottom: 1px dashed var(--rule); padding-bottom: 14px; }
+.soon {
+  font: 600 12px/1.4 var(--sans); text-transform: uppercase; letter-spacing: .06em; color: var(--red-ink);
+  border: 1px solid var(--red-ink); border-radius: 999px; padding: 2px 9px; vertical-align: middle;
+  margin-left: 6px; white-space: nowrap; background: rgba(228,188,128,.5);
+}
+.tip { border-left: 4px solid var(--red-ink); padding: 4px 18px; margin: 18px 0; }
+
+footer.site {
+  padding-top: 20px; padding-bottom: 40px; border-top: 1px solid var(--rule);
+  box-shadow: 0 -3px 0 -2px var(--rule-soft); font-size: 15px; color: var(--ink-faded);
+}
+
+/* Tutorial images: inked frames on the paper. */
+figure.shot { margin: 18px 0 26px; text-align: center; }
 figure.shot img { max-width: 100%; height: auto; }
-figure.shot figcaption { font-size: 14px; color: var(--muted); margin-top: 6px; }
-.tip { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 10px; padding: 4px 16px; margin: 16px 0; }
-figure.phone img { width: 260px; border-radius: 28px; border: 1px solid var(--line); box-shadow: 0 6px 24px rgba(0,0,0,.12); }
+figure.shot figcaption, .pair figcaption, .pair-cap { font-style: italic; color: var(--ink-faded); }
+figure.shot figcaption { font-size: 15px; margin-top: 8px; }
+figure.phone img, .pair figure img {
+  border: 1px solid var(--rule); box-shadow: 0 0 0 5px rgba(228,188,128,.6), 0 0 0 6px var(--rule-soft), 0 10px 26px rgba(40,22,8,.28);
+}
+figure.phone img { width: 260px; max-width: 100%; border-radius: 28px; }
 figure.phone.wide img { width: 100%; max-width: 640px; border-radius: 18px; }
-.pair { display: flex; gap: 16px; justify-content: center; align-items: flex-start; flex-wrap: wrap; margin: 16px 0 4px; }
+.pair { display: flex; gap: 22px; justify-content: center; align-items: flex-start; flex-wrap: wrap; margin: 18px 0 6px; }
 .pair figure { margin: 0; text-align: center; flex: 1 1 200px; max-width: 300px; }
-.pair figure img { width: 100%; height: auto; border-radius: 22px; border: 1px solid var(--line); box-shadow: 0 6px 24px rgba(0,0,0,.12); }
-.pair figcaption { font-size: 13px; color: var(--muted); margin-top: 4px; }
-.pair-cap { text-align: center; font-size: 14px; color: var(--muted); margin: 0 0 24px; }
+.pair figure img { width: 100%; height: auto; border-radius: 22px; }
+.pair figcaption { font-size: 14px; margin-top: 8px; }
+.pair-cap { text-align: center; font-size: 15px; margin: 0 0 26px; }
+
+@media (max-width: 520px) {
+  body { font-size: 17px; }
+  header.site, main, footer.site { padding-left: 22px; padding-right: 22px; }
+  header.site, footer.site { margin-left: 22px; margin-right: 22px; padding-left: 0; padding-right: 0; }
+  header.site { padding-top: 26px; }
+  h1 { font-size: 32px; }
+  .hero h1 { font-size: 38px; }
+  body::after { margin: 5px; outline-offset: -11px; box-shadow: inset 0 0 50px 10px rgba(110,58,20,.42), inset 0 0 12px 2px rgba(40,22,8,.3); }
+}
